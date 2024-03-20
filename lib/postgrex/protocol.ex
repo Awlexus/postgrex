@@ -642,6 +642,8 @@ defmodule Postgrex.Protocol do
   defp connect(host, port, sock_opts, timeout, s) do
     buffer? = Keyword.has_key?(sock_opts, :buffer)
 
+    dbg()
+
     case :gen_tcp.connect(host, port, sock_opts ++ @sock_opts, timeout) do
       {:ok, sock} when buffer? ->
         {:ok, %{s | sock: {:gen_tcp, sock}}}
